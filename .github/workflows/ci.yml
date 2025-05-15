@@ -1,0 +1,9 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Python
+        run: py -3.11 -m pip --version
