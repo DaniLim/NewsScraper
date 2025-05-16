@@ -1,0 +1,153 @@
+# Spanish news & blog feeds — confirmed working
+
+- name: ABC » Portada
+  url: https://www.abc.es/rss/feeds/abcPortada.xml
+  source: abc.es
+
+- name: AdslZone
+  url: https://www.adslzone.net/feed/
+  source: adslzone.net
+
+- name: Andro4all
+  url: https://andro4all.com/feed
+  source: andro4all.com
+
+- name: Applesfera
+  url: https://www.applesfera.com/index.xml
+  source: applesfera.com
+
+- name: Cinco Días » Portada
+  url: https://cincodias.elpais.com/rss/cincodias/portada.xml
+  source: cincodias.elpais.com
+
+- name: Computer Hoy
+  url: https://computerhoy.com/rss
+  source: computerhoy.com
+
+- name: Crónica Global » Portada
+  url: https://cronicaglobal.elespanol.com/rss
+  source: cronicaglobal.elespanol.com
+
+- name: Diario Red » Portada
+  url: https://www.diario-red.com/rss
+  source: diario-red.com
+
+- name: Economía Digital » Portada
+  url: https://www.economiadigital.es/feed
+  source: economiadigital.es
+
+- name: El Confidencial Digital » Portada
+  url: https://www.elconfidencialdigital.com/rss/
+  source: elconfidencialdigital.com
+
+- name: El Desmarque » Portada
+  url: https://eldesmarque.com/feed
+  source: eldesmarque.com
+
+- name: El Independiente » Portada
+  url: https://www.elindependiente.com/feed
+  source: elindependiente.com
+
+- name: El Mundo » Portada
+  url: https://e00-elmundo.uecdn.es/elmundo/rss/portada.xml
+  source: elmundo.es
+
+- name: El País » Últimas noticias
+  url: https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ultimas-noticias/portada
+  source: elpais.com
+
+- name: El Plural » Portada
+  url: https://www.elplural.com/feed/
+  source: elplural.com
+
+- name: El Progreso (Lugo) » Portada
+  url: https://www.elprogreso.es/rss
+  source: elprogreso.es
+
+- name: Eldiario.es » Portada
+  url: https://www.eldiario.es/rss
+  source: eldiario.es
+
+- name: Europa Press » Nacional
+  url: https://www.europapress.es/rss/rss.aspx?ch=1
+  source: europapress.es
+
+- name: Expansión » Portada
+  url: https://e00-expansion.uecdn.es/rss/portada.xml
+  source: expansion.com
+
+- name: Genbeta
+  url: https://www.genbeta.com/index.xml
+  source: genbeta.com
+
+- name: Gizmodo en Español
+  url: https://es.gizmodo.com/rss
+  source: es.gizmodo.com
+
+- name: Grada3
+  url: https://www.grada3.com/feed
+  source: grada3.com
+
+- name: Hipertextual
+  url: https://hipertextual.com/feed
+  source: hipertextual.com
+
+- name: InfoLibre » Portada
+  url: https://www.infolibre.es/rss
+  source: infolibre.es
+
+- name: La Vanguardia » Portada
+  url: https://www.lavanguardia.com/rss/home.xml
+  source: lavanguardia.com
+
+- name: Libertad Digital » Portada
+  url: https://www.libertaddigital.com/rss/portada.xml
+  source: libertaddigital.com
+
+- name: Marca » Portada
+  url: https://e00-marca.uecdn.es/rss/portada.xml
+  source: marca.com
+
+- name: Mundo Deportivo » Portada
+  url: https://www.mundodeportivo.com/rss/home.xml
+  source: mundodeportivo.com
+
+- name: MuyComputer
+  url: https://www.muycomputer.com/feed
+  source: muycomputer.com
+
+- name: Okdiario » Portada
+  url: https://okdiario.com/feed
+  source: okdiario.com
+
+- name: Periodista Digital » Portada
+  url: https://www.periodistadigital.com/feed
+  source: periodistadigital.com
+
+- name: SoftZone
+  url: https://www.softzone.es/feed
+  source: softzone.es
+
+- name: The Objective » Portada
+  url: https://theobjective.com/feed
+  source: theobjective.com
+
+- name: Vida Extra
+  url: https://www.vidaextra.com/index.xml
+  source: vidaextra.com
+
+- name: Xataka
+  url: https://www.xataka.com/index.xml
+  source: xataka.com
+
+- name: Xataka Android
+  url: https://www.xatakandroid.com/index.xml
+  source: xatakandroid.com
+
+- name: Xataka Foto
+  url: https://www.xatakafoto.com/index.xml
+  source: xatakafoto.com
+
+- name: Xataka Móvil
+  url: https://www.xatakamovil.com/index.xml
+  source: xatakamovil.com
