@@ -1,181 +1,160 @@
 #!/usr/bin/env python3
 """
-feeds.health
-~~~~~~~~~~~~
+feeds.health – helper utilities
+==============================
+Robust RSS/Atom discovery & validation for **NewsScraper**.
 
-Reusable helpers for validating and (optionally) discovering RSS/Atom feed URLs.
-
-This module provides:
-- `validate_url`: Asynchronously checks if a URL returns a valid feed with entries.
-- `discover_feed`: Attempts HTML autodiscovery and common path probing (including known API paths).
-- `load_feed_dict` / `save_feed_dict`: YAML-backed feed list I/O.
+Key refinements in this release
+------------------------------
+* **Binary‑safe fetch** – we now read raw *bytes* (`resp.read()`), letting
+  *feedparser* determine the encoding from the XML prolog. This fixes feeds such
+  as *Superdeporte* that serve ISO‑8859‑1.
+* **Smarter HTTP headers** – explicit `Accept` hints encourage servers to return
+  XML rather than an HTML landing page.
+* **Alt‑host & deep‑path probing** – unchanged from previous version, but now
+  aided by the more forgiving validator.
 """
-
 from __future__ import annotations
-import asyncio
-import html
-import logging
-import re
+
+import asyncio, html, logging, pathlib, re
 from typing import Any, Dict, Iterable, List, Optional
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
-import aiohttp
-import feedparser
-import yaml
-import pathlib
+import aiohttp, feedparser, yaml
 from bs4 import BeautifulSoup
-from bs4 import XMLParsedAsHTMLWarning
-import warnings
 
-warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
-
-# Configure module-level logger
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
-# ---------- constants ----------------------------------------------------
-TIMEOUT = 15  # seconds for HTTP requests
-HEADERS = {"User-Agent": "NewsScraper/0.1 (+https://github.com/DaniLim)"}
+# ---------------------------------------------------------------------------
+# Constants
+# ---------------------------------------------------------------------------
+TIMEOUT = 15  # seconds
+HEADERS = {
+    "User-Agent": "NewsScraper/0.3 (+https://github.com/DaniLim)",
+    # Prefer XML/RSS but fall back gracefully
+    "Accept": "application/rss+xml, application/atom+xml, application/xml;q=0.9, */*;q=0.8",
+}
 FEEDS_YAML = pathlib.Path(__file__).resolve().parents[1] / "feeds.yaml"
-FEED_MIME_RE = re.compile(r"application/(?:rss|atom)\+xml", re.I)
 
-# Known fallback suffixes to probe, including El Norte de Castilla style
-FALLBACK_SUFFIXES = (
-    "rss", "RSS", "rss/", "RSS/",
-    "rss/2.0", "rss/2.0/", "rss/2.0/portada", "rss/2.0/portada/",
-)
+# MIME & URL heuristics
+FEED_MIME_RE = re.compile(r"(?:application|text)/(?:rss|atom)\+xml(?:;.*)?", re.I)
+URL_FEED_RE  = re.compile(r"rss|feeds?|\.xml|\.rss|\.atom", re.I)
 
-# ---------- core async helpers ------------------------------------------
+# Common path probes
+GENERIC_PROBES = [
+    "feed", "feed/", "feed.xml", "feeds", "feeds/", "feeds/index.xml",
+    "rss", "rss/", "rss.xml", "rss/index.xml", "atom", "atom.xml", "index.xml",
+]
+SPECIFIC_PROBES = [
+    "rss/rss_ee.xml",                        # eleconomista.es
+    "RSS-portlet/feed/la-razon/portada",     # larazon.es
+    "rss/portada.xml", "rss/section/portada",
+    "rss/2.0", "rss/2.0/", "rss/2.0/portada",
+]
+COMMON_FEED_PATHS = GENERIC_PROBES + SPECIFIC_PROBES
+
+# ---------------------------------------------------------------------------
+# HTTP helpers
+# ---------------------------------------------------------------------------
+async def _fetch_raw(session: aiohttp.ClientSession, url: str) -> bytes:
+    """Return body **bytes**; raises on error."""
+    async with session.get(url, headers=HEADERS, timeout=TIMEOUT) as resp:
+        resp.raise_for_status()
+        return await resp.read()
+
 async def _fetch_text(session: aiohttp.ClientSession, url: str) -> str:
+    """Return body decoded as text using aiohttp auto‑detection."""
+    async with session.get(url, headers=HEADERS, timeout=TIMEOUT) as resp:
+        resp.raise_for_status()
+        return await resp.text()
+
+# ---------------------------------------------------------------------------
+# Validation
+# ---------------------------------------------------------------------------
+async def validate_url(url: str, session: aiohttp.ClientSession, *, strict: bool = True) -> bool:
     """
-    Fetch text content from a URL, raising on HTTP or network errors.
+    True if *url* is a well‑formed feed.
 
-    Args:
-        session: Shared aiohttp ClientSession.
-        url: Target URL to fetch.
-
-    Returns:
-        The response body as text.
-
-    Raises:
-        aiohttp.ClientError, asyncio.TimeoutError
-    """
-    try:
-        async with session.get(url, timeout=TIMEOUT, headers=HEADERS) as response:
-            response.raise_for_status()
-            return await response.text()
-    except Exception as exc:
-        logger.debug("Error fetching %s: %s", url, exc)
-        raise
-
-async def validate_url(
-    url: str,
-    session: aiohttp.ClientSession,
-    strict: bool = True,
-) -> bool:
-    """
-    Check if a URL returns a valid RSS/Atom feed.
-
-    Args:
-        url: Feed URL to validate.
-        session: Shared aiohttp ClientSession.
-        strict: If True, require ≥1 entry; if False, only check parsing success.
-
-    Returns:
-        True if feed is well-formed (and has entries when strict), False otherwise.
+    • Uses raw bytes to let feedparser honour the XML prolog’s charset.
+    • Accepts feeds with non‑fatal *bozo* issues so long as entries exist
+      (or *strict* is False).
     """
     try:
-        raw_text = await _fetch_text(session, url)
+        raw = await _fetch_raw(session, url)
     except Exception:
         return False
 
-    parsed = feedparser.parse(raw_text)
-    if parsed.bozo:
-        logger.debug("Parser error for %s: %s", url, parsed.bozo_exception)
+    parsed = feedparser.parse(raw)
+    if parsed.bozo and not parsed.entries:
         return False
-
     if strict and not parsed.entries:
-        logger.debug("No entries in feed %s", url)
         return False
-
     return True
 
-async def discover_feed(
-    session: aiohttp.ClientSession,
-    root: str
-) -> Optional[str]:
-    """
-    Autodiscover a feed URL given a site root.
+# ---------------------------------------------------------------------------
+# Discovery helpers
+# ---------------------------------------------------------------------------
+async def _extract_feed_urls(html_text: str, base_url: str) -> List[str]:
+    soup = BeautifulSoup(html_text, "html.parser")
+    candidates: List[str] = []
+    for tag in soup.find_all(True):
+        for val in (tag.attrs.get("href"), tag.attrs.get("src")):
+            if isinstance(val, str) and URL_FEED_RE.search(val):
+                candidates.append(urljoin(base_url, val))
+    # Deduplicate
+    seen: set[str] = set()
+    uniq = [c for c in candidates if not (c in seen or seen.add(c))]
+    return uniq
 
-    Workflow:
-    1) HTML <link rel="alternate"> autodiscovery on homepage.
-    2) Probe known URL patterns (FALLBACK_SUFFIXES).
+async def _probe_candidate(session: aiohttp.ClientSession, url: str) -> Optional[str]:
+    return url if await validate_url(url, session, strict=False) else None
 
-    Args:
-        session: Shared aiohttp ClientSession.
-        root: Base site URL (e.g. "https://example.com").
+async def _alt_hosts(url: str) -> List[str]:
+    p = urlparse(url)
+    naked = p.netloc.lstrip("www.")
+    return list(dict.fromkeys([f"{p.scheme}://{naked}", f"{p.scheme}://www.{naked}"]))
 
-    Returns:
-        First valid feed URL discovered, or None.
-    """
-    # 1) HTML <link> autodiscovery
-    try:
-        page_html = await _fetch_text(session, root)
-        soup = BeautifulSoup(page_html, 'html.parser')
-        for tag in soup.find_all('link', rel='alternate'):
-            mime = tag.get('type', '')
-            href = tag.get('href')
-            if href and FEED_MIME_RE.match(mime):
-                candidate = urljoin(root, href)
-                logger.debug("Discovered feed via <link>: %s", candidate)
-                return html.unescape(candidate)
-    except Exception as exc:
-        logger.debug("Autodiscovery failed on homepage %s: %s", root, exc)
-
-    # 2) Fallback: common and known RSS paths
-    for suffix in FALLBACK_SUFFIXES:
-        probe_url = root.rstrip('/') + '/' + suffix
+async def discover_feed(session: aiohttp.ClientSession, root: str) -> Optional[str]:
+    """Return first valid feed URL discovered for *root*, else *None*."""
+    for host in await _alt_hosts(root):
+        # 1) Homepage scrape
         try:
-            page_html = await _fetch_text(session, probe_url)
-            # both XML feeds and HTML discovery pages
-            soup = BeautifulSoup(page_html, 'html.parser')
-            # Try direct feed parser first
-            if await validate_url(probe_url, session, strict=False):
-                logger.debug("Valid feed at fallback %s", probe_url)
-                return probe_url
-            # Otherwise, look for <link> tags pointing to feed
-            tag = soup.find('link', type=FEED_MIME_RE)
-            if tag and tag.get('href'):
-                candidate = urljoin(probe_url, tag['href'])
-                if await validate_url(candidate, session, strict=False):
-                    logger.debug("Discovered feed via fallback tag %s -> %s", probe_url, candidate)
-                    return html.unescape(candidate)
+            html_text = await _fetch_text(session, host)
+            for cand in await _extract_feed_urls(html_text, host):
+                if await _probe_candidate(session, cand):
+                    logger.debug("Feed via homepage %s → %s", host, cand)
+                    return html.unescape(cand)
         except Exception:
-            continue
+            pass
 
-    logger.debug("No feed discovered for %s", root)
+        # 2) Common paths & their inner pages
+        for suf in COMMON_FEED_PATHS:
+            probe = host.rstrip("/") + "/" + suf.lstrip("/")
+            if await _probe_candidate(session, probe):
+                logger.debug("Feed via path %s", probe)
+                return probe
+            try:
+                probe_html = await _fetch_text(session, probe)
+                for cand in await _extract_feed_urls(probe_html, probe):
+                    if await _probe_candidate(session, cand):
+                        logger.debug("Feed inside %s → %s", probe, cand)
+                        return html.unescape(cand)
+            except Exception:
+                continue
     return None
 
-# ---------- YAML I/O -----------------------------------------------------
+# ---------------------------------------------------------------------------
+# YAML I/O
+# ---------------------------------------------------------------------------
+
 def load_feed_dict() -> List[Dict[str, Any]]:
-    """
-    Load the feed list from feeds.yaml. Expects a list of dicts with a 'url' key.
-
-    Returns:
-        List of feed dictionaries.
-    """
-    text = FEEDS_YAML.read_text(encoding="utf-8")
-    return yaml.safe_load(text)
-
+    return yaml.safe_load(FEEDS_YAML.read_text(encoding="utf-8")) or []
 
 def save_feed_dict(data: Iterable[Dict[str, Any]]) -> None:
-    """
-    Persist the feed list back to feeds.yaml, preserving order.
-
-    Args:
-        data: Iterable of feed dicts to write.
-    """
     FEEDS_YAML.write_text(
-        yaml.safe_dump(list(data), allow_unicode=True, sort_keys=False),
-        encoding="utf-8"
+        yaml.safe_dump(list(data), allow_unicode=True, sort_keys=False), encoding="utf-8"
     )

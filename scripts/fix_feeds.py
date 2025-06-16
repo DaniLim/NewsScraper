@@ -42,7 +42,7 @@ async def propose_fixes(feeds: list[dict]) -> tuple[dict[str, str], int]:
         async def handle(feed: dict):
             nonlocal broken_total
             async with sem:
-                ok = await validate_url(feed["url"], sess, strict=STRICT_CHECK)
+                ok = await validate_url(feed["url"], sess, strict=STRICT_CHECK, tolerate_bozo=True)
                 if ok:
                     return
                 broken_total += 1
