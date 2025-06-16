@@ -1,153 +1,364 @@
-# Spanish news & blog feeds — confirmed working
+# Spanish news & blog feeds – v3 (cleaned)  – total: 89 feeds
+# ──────────────────────────────────────────────────────────────
+# 1 · NACIONALES  (Información general)
+- name: "ABC » Portada"
+  url: "https://www.abc.es/rss/feeds/abcPortada.xml"
+  source: "abc.es"
 
-- name: ABC » Portada
-  url: https://www.abc.es/rss/feeds/abcPortada.xml
-  source: abc.es
+- name: "El País » Últimas noticias"
+  url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ultimas-noticias/portada"
+  source: "elpais.com"
 
-- name: AdslZone
-  url: https://www.adslzone.net/feed/
-  source: adslzone.net
+- name: "El Mundo » Portada"
+  url: "https://e00-elmundo.uecdn.es/elmundo/rss/portada.xml"
+  source: "elmundo.es"
 
-- name: Andro4all
-  url: https://andro4all.com/feed
-  source: andro4all.com
+- name: "El Periódico de Catalunya » Portada"
+  url: "https://www.elperiodico.com/es/rss/feed"
+  source: "elperiodico.com"
 
-- name: Applesfera
-  url: https://www.applesfera.com/index.xml
-  source: applesfera.com
+- name: "La Razón » Portada"
+  url: "https://www.larazon.es/RSS-portlet/feed/la-razon/portada"
+  source: "larazon.es"
 
-- name: Cinco Días » Portada
-  url: https://cincodias.elpais.com/rss/cincodias/portada.xml
-  source: cincodias.elpais.com
+- name: "La Vanguardia » Portada"
+  url: "https://www.lavanguardia.com/rss/home.xml"
+  source: "lavanguardia.com"
 
-- name: Computer Hoy
-  url: https://computerhoy.com/rss
-  source: computerhoy.com
+- name: "Público » Portada"
+  url: "https://www.publico.es/feed"
+  source: "publico.es"
 
-- name: Crónica Global » Portada
-  url: https://cronicaglobal.elespanol.com/rss
-  source: cronicaglobal.elespanol.com
+- name: "Vozpópuli » Portada"
+  url: "https://www.vozpopuli.com/feed/"
+  source: "vozpopuli.com"
 
-- name: Diario Red » Portada
-  url: https://www.diario-red.com/rss
-  source: diario-red.com
+- name: "Huffington Post España"
+  url: "https://www.huffingtonpost.es/feed"
+  source: "huffingtonpost.es"
 
-- name: Economía Digital » Portada
-  url: https://www.economiadigital.es/feed
-  source: economiadigital.es
+- name: "Crónica Global"
+  url: "https://cronicaglobal.elespanol.com/rss"
+  source: "cronicaglobal.elespanol.com"
 
-- name: El Confidencial Digital » Portada
-  url: https://www.elconfidencialdigital.com/rss/
-  source: elconfidencialdigital.com
+- name: "Diario Red"
+  url: "https://www.diario-red.com/rss"
+  source: "diario-red.com"
 
-- name: El Desmarque » Portada
-  url: https://eldesmarque.com/feed
-  source: eldesmarque.com
+- name: "El Independiente"
+  url: "https://www.elindependiente.com/feed"
+  source: "elindependiente.com"
 
-- name: El Independiente » Portada
-  url: https://www.elindependiente.com/feed
-  source: elindependiente.com
+- name: "InfoLibre"
+  url: "https://www.infolibre.es/rss"
+  source: "infolibre.es"
 
-- name: El Mundo » Portada
-  url: https://e00-elmundo.uecdn.es/elmundo/rss/portada.xml
-  source: elmundo.es
+- name: "Okdiario"
+  url: "https://okdiario.com/feed"
+  source: "okdiario.com"
 
-- name: El País » Últimas noticias
-  url: https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/ultimas-noticias/portada
-  source: elpais.com
+- name: "El Plural"
+  url: "https://www.elplural.com/feed/"
+  source: "elplural.com"
 
-- name: El Plural » Portada
-  url: https://www.elplural.com/feed/
-  source: elplural.com
+- name: "El Confidencial Digital"
+  url: "https://www.elconfidencialdigital.com/rss/"
+  source: "elconfidencialdigital.com"
 
-- name: El Progreso (Lugo) » Portada
-  url: https://www.elprogreso.es/rss
-  source: elprogreso.es
+# 2 · ECONOMÍA / NEGOCIOS
+- name: "Expansión » Portada"
+  url: "https://e00-expansion.uecdn.es/rss/portada.xml"
+  source: "expansion.com"
 
-- name: Eldiario.es » Portada
-  url: https://www.eldiario.es/rss
-  source: eldiario.es
+- name: "Cinco Días » Portada"
+  url: "https://cincodias.elpais.com/rss/cincodias/portada.xml"
+  source: "cincodias.elpais.com"
 
-- name: Europa Press » Nacional
-  url: https://www.europapress.es/rss/rss.aspx?ch=1
-  source: europapress.es
+- name: "El Economista » Portada"
+  url: "https://www.eleconomista.es/rss/rss_ee.xml"
+  source: "eleconomista.es"
 
-- name: Expansión » Portada
-  url: https://e00-expansion.uecdn.es/rss/portada.xml
-  source: expansion.com
+- name: "Economía Digital"
+  url: "https://www.economiadigital.es/feed"
+  source: "economiadigital.es"
 
-- name: Genbeta
-  url: https://www.genbeta.com/index.xml
-  source: genbeta.com
+# 3 · TECNOLOGÍA / CIENCIA & CULTURA DIGITAL
+- name: "Xataka"
+  url: "https://www.xataka.com/index.xml"
+  source: "xataka.com"
 
-- name: Gizmodo en Español
-  url: https://es.gizmodo.com/rss
-  source: es.gizmodo.com
+- name: "Xataka Android"
+  url: "https://www.xatakandroid.com/index.xml"
+  source: "xatakandroid.com"
 
-- name: Grada3
-  url: https://www.grada3.com/feed
-  source: grada3.com
+- name: "Xataka Foto"
+  url: "https://www.xatakafoto.com/index.xml"
+  source: "xatakafoto.com"
 
-- name: Hipertextual
-  url: https://hipertextual.com/feed
-  source: hipertextual.com
+- name: "Xataka Móvil"
+  url: "https://www.xatakamovil.com/index.xml"
+  source: "xatakamovil.com"
 
-- name: InfoLibre » Portada
-  url: https://www.infolibre.es/rss
-  source: infolibre.es
+- name: "Genbeta"
+  url: "https://www.genbeta.com/index.xml"
+  source: "genbeta.com"
 
-- name: La Vanguardia » Portada
-  url: https://www.lavanguardia.com/rss/home.xml
-  source: lavanguardia.com
+- name: "Applesfera"
+  url: "https://www.applesfera.com/index.xml"
+  source: "applesfera.com"
 
-- name: Libertad Digital » Portada
-  url: https://www.libertaddigital.com/rss/portada.xml
-  source: libertaddigital.com
+- name: "Andro4all"
+  url: "https://andro4all.com/feed"
+  source: "andro4all.com"
 
-- name: Marca » Portada
-  url: https://e00-marca.uecdn.es/rss/portada.xml
-  source: marca.com
+- name: "AdslZone"
+  url: "https://www.adslzone.net/feed/"
+  source: "adslzone.net"
 
-- name: Mundo Deportivo » Portada
-  url: https://www.mundodeportivo.com/rss/home.xml
-  source: mundodeportivo.com
+- name: "SoftZone"
+  url: "https://www.softzone.es/feed"
+  source: "softzone.es"
 
-- name: MuyComputer
-  url: https://www.muycomputer.com/feed
-  source: muycomputer.com
+- name: "Hipertextual"
+  url: "https://hipertextual.com/feed"
+  source: "hipertextual.com"
 
-- name: Okdiario » Portada
-  url: https://okdiario.com/feed
-  source: okdiario.com
+- name: "MuyComputer"
+  url: "https://www.muycomputer.com/feed"
+  source: "muycomputer.com"
 
-- name: Periodista Digital » Portada
-  url: https://www.periodistadigital.com/feed
-  source: periodistadigital.com
+# 4 · DEPORTES
+- name: "Marca » Portada"
+  url: "https://e00-marca.uecdn.es/rss/portada.xml"
+  source: "marca.com"
 
-- name: SoftZone
-  url: https://www.softzone.es/feed
-  source: softzone.es
+- name: "AS » Portada"
+  url: "https://as.com/rss/as.xml"
+  source: "as.com"
 
-- name: The Objective » Portada
-  url: https://theobjective.com/feed
-  source: theobjective.com
+- name: "Mundo Deportivo » Portada"
+  url: "https://www.mundodeportivo.com/rss/home.xml"
+  source: "mundodeportivo.com"
 
-- name: Vida Extra
-  url: https://www.vidaextra.com/index.xml
-  source: vidaextra.com
+- name: "El Desmarque"
+  url: "https://eldesmarque.com/feed"
+  source: "eldesmarque.com"
 
-- name: Xataka
-  url: https://www.xataka.com/index.xml
-  source: xataka.com
+- name: "Superdeporte"
+  url: "https://www.superdeporte.es/rss/portada.xml"
+  source: "superdeporte.es"
 
-- name: Xataka Android
-  url: https://www.xatakandroid.com/index.xml
-  source: xatakandroid.com
+- name: "Estadio Deportivo"
+  url: "https://www.estadiodeportivo.com/rss/ed-portada.xml"
+  source: "estadiodeportivo.com"
 
-- name: Xataka Foto
-  url: https://www.xatakafoto.com/index.xml
-  source: xatakafoto.com
+- name: "Grada 3"
+  url: "https://www.grada3.com/feed"
+  source: "grada3.com"
 
-- name: Xataka Móvil
-  url: https://www.xatakamovil.com/index.xml
-  source: xatakamovil.com
+# 5 · BLOGS & OPINIÓN
+- name: "Vida Extra"
+  url: "https://www.vidaextra.com/index.xml"
+  source: "vidaextra.com"
+
+- name: "The Objective"
+  url: "https://theobjective.com/feed"
+  source: "theobjective.com"
+
+- name: "Periodista Digital"
+  url: "https://www.periodistadigital.com/feed"
+  source: "periodistadigital.com"
+
+- name: "Público – Blogs Dominio Público"
+  url: "http://blogs.publico.es/dominiopublico/feed/"
+  source: "publico.es"
+
+- name: "Mundo Deportivo – Vaya Mundo"
+  url: "http://www.mundodeportivo.com/feed/rss/vaya-mundo"
+  source: "mundodeportivo.com"
+
+- name: "Libertad Digital – Nacional"
+  url: "http://www.libertaddigital.com/rss/nacional.xml"
+  source: "libertaddigital.com"
+
+- name: "Libertad Digital – Internet"
+  url: "http://www.libertaddigital.com/rss/internet.xml"
+  source: "libertaddigital.com"
+
+- name: "Libertad Digital – Opinión (José García Domínguez)"
+  url: "http://www.libertaddigital.com/opinion/jose-garcia-dominguez/rss.xml"
+  source: "libertaddigital.com"
+
+# 6 · REGIONALES
+- name: "La Voz de Galicia » Portada"
+  url: "https://www.lavozdegalicia.es/rss/portada.xml"
+  source: "lavozdegalicia.es"
+
+- name: "El Correo » Portada"
+  url: "https://www.elcorreo.com/rss/portada.xml"
+  source: "elcorreo.com"
+
+- name: "La Nueva España » Portada"
+  url: "https://www.lne.es/rss/section/portada"
+  source: "lne.es"
+
+- name: "Heraldo de Aragón » Portada"
+  url: "https://www.heraldo.es/rss/portada.xml"
+  source: "heraldo.es"
+
+- name: "Levante-EMV » Portada"
+  url: "https://www.levante-emv.com/rss/section/portada"
+  source: "levante-emv.com"
+
+- name: "Faro de Vigo » Portada"
+  url: "https://www.farodevigo.es/rss/section/portada"
+  source: "farodevigo.es"
+
+- name: "La Verdad (Murcia) » Portada"
+  url: "https://www.laverdad.es/rss/portada.xml"
+  source: "laverdad.es"
+
+- name: "Diario Vasco » Portada"
+  url: "https://www.diariovasco.com/rss/portada.xml"
+  source: "diariovasco.com"
+
+- name: "El Norte de Castilla » Portada"
+  url: "https://www.elnortedecastilla.es/rss/portada.xml"
+  source: "elnortedecastilla.es"
+
+- name: "Diario Montañés » Portada"
+  url: "https://www.eldiariomontanes.es/rss/portada.xml"
+  source: "eldiariomontanes.es"
+
+- name: "Diario de Navarra » Portada"
+  url: "https://www.diariodenavarra.es/rss/portada.xml"
+  source: "diariodenavarra.es"
+
+- name: "Diario de Burgos » Portada"
+  url: "https://www.diariodeburgos.es/rss/portada.xml"
+  source: "diariodeburgos.es"
+
+- name: "Diario de Mallorca » Portada"
+  url: "https://www.diariodemallorca.es/rss/section/portada"
+  source: "diariodemallorca.es"
+
+- name: "Ideal (Granada) » Portada"
+  url: "https://www.ideal.es/rss/portada.xml"
+  source: "ideal.es"
+
+- name: "Canarias 7 » Portada"
+  url: "https://www.canarias7.es/rss/portada.xml"
+  source: "canarias7.es"
+
+- name: "Diario Sur (Málaga) » Portada"
+  url: "https://www.diariosur.es/rss/portada.xml"
+  source: "diariosur.es"
+
+- name: "La Provincia (Canarias) » Portada"
+  url: "https://www.laprovincia.es/rss/section/portada"
+  source: "laprovincia.es"
+
+- name: "Diario de Cádiz » Portada"
+  url: "https://www.diariodecadiz.es/rss/portada.xml"
+  source: "diariodecadiz.es"
+
+- name: "Diario Vasco – Última Hora"
+  url: "http://www.diariovasco.com/rss/feeds/ultima.xml"
+  source: "diariovasco.com"
+
+- name: "Diario Córdoba – Portada"
+  url: "http://www.diariocordoba.com/RSS/101.xml"
+  source: "diariocordoba.com"
+
+# 7 · NACIONALES / SECCIONES ESPECÍFICAS
+- name: "La Gaceta"
+  url: "https://gaceta.es/feed/"
+  source: "gaceta.es"
+
+- name: "VilaWeb"
+  url: "http://www.vilaweb.cat/rss/vilaweb.rss"
+  source: "vilaweb.cat"
+
+- name: "La Voz de Galicia – Tecnología"
+  url: "http://www.lavozdegalicia.es/tecnologia/index.xml"
+  source: "lavozdegalicia.es"
+
+- name: "La Voz de Galicia – Carballo"
+  url: "http://www.lavozdegalicia.es/carballo/index.xml"
+  source: "lavozdegalicia.es"
+
+- name: "La Vanguardia – Tecnología"
+  url: "http://www.lavanguardia.com/mvc/feed/rss/tecnologia"
+  source: "lavanguardia.com"
+
+- name: "La Vanguardia – Local Barcelona"
+  url: "http://www.lavanguardia.com/mvc/feed/rss/local/barcelona"
+  source: "lavanguardia.com"
+
+- name: "La Vanguardia – Economía"
+  url: "http://www.lavanguardia.com/mvc/feed/rss/economia"
+  source: "lavanguardia.com"
+
+- name: "El Periódico – Tecnología"
+  url: "https://www.elperiodico.com/es/rss/tecnologia/rss.xml"
+  source: "elperiodico.com"
+
+- name: "El Periódico – Internacional"
+  url: "https://www.elperiodico.com/es/rss/internacional/rss.xml"
+  source: "elperiodico.com"
+
+- name: "El Periódico – Economía"
+  url: "https://www.elperiodico.com/es/rss/economia/rss.xml"
+  source: "elperiodico.com"
+
+- name: "El País – Economía"
+  url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/economia/portada"
+  source: "elpais.com"
+
+- name: "El País – Internacional"
+  url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/internacional/portada"
+  source: "elpais.com"
+
+- name: "El País – Tecnología"
+  url: "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/tecnologia/portada"
+  source: "elpais.com"
+
+- name: "Eldiario.es – Nacional"
+  url: "http://www.eldiario.es/rss/section/10001/"
+  source: "eldiario.es"
+
+- name: "Eldiario.es – Internacional"
+  url: "http://www.eldiario.es/rss/internacional/"
+  source: "eldiario.es"
+
+- name: "Eldiario.es – Economía"
+  url: "http://www.eldiario.es/rss/economia/"
+  source: "eldiario.es"
+
+- name: "Eldiario.es – Portada"
+  url: "http://www.eldiario.es/rss/"
+  source: "eldiario.es"
+
+- name: "El Confidencial – Tecnología"
+  url: "https://www.elconfidencial.com/rss/tecnologia.xml"
+  source: "elconfidencial.com"
+
+- name: "El Confidencial – Noticias"
+  url: "https://www.elconfidencial.com/rss/noticias.xml"
+  source: "elconfidencial.com"
+
+- name: "El Confidencial – Mundo"
+  url: "http://rss.elconfidencial.com/mundo/"
+  source: "elconfidencial.com"
+
+- name: "El Confidencial – Mercados"
+  url: "http://rss.elconfidencial.com/mercados/"
+  source: "elconfidencial.com"
+
+- name: "El Mundo – Economía"
+  url: "http://estaticos.elmundo.es/elmundo/rss/economia.xml"
+  source: "elmundo.es"
+
+- name: "El Mundo – Andalucía"
+  url: "http://estaticos.elmundo.es/elmundo/rss/andalucia.xml"
+  source: "elmundo.es"
