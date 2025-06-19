@@ -23,7 +23,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set +e
-          RUN_ID=$(gh run list --workflow ingest.yml --branch ${{ github.ref_name }} -L 1 --json databaseId -q '.[0].databaseId' || echo "")
+          RUN_ID=$(gh run list --workflow ingest.yml --branch ${{ github.ref_name }} --status success -L 1 --json databaseId -q '.[0].databaseId' || echo "")
           if [ -n "$RUN_ID" ]; then
             gh run download "$RUN_ID" -n news-db || echo "No artifact to download"
             if [ -f news-db/news.db ]; then
