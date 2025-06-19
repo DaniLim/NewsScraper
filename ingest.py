@@ -24,7 +24,10 @@ def clean_summary(entry, char_limit=500):
     # 2. decode HTML entities (&amp; → &, &#39; → ')
     raw = html.unescape(raw)
     # 3. strip tags & images
-    text = BeautifulSoup(raw, "lxml").get_text(separator=" ", strip=True)
+    # Use the built in HTML parser to avoid requiring the external ``lxml``
+    # dependency. ``lxml`` is not listed in ``requirements.txt`` and using it
+    # would cause runtime errors on a fresh install.
+    text = BeautifulSoup(raw, "html.parser").get_text(separator=" ", strip=True)
     # 4. collapse multiple spaces / newlines
     text = re.sub(r"\s+", " ", text).strip()
     if not text:
