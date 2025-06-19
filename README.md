@@ -77,7 +77,7 @@ Pull requests are welcome! Please:
 2. Run `pre-commit run --all-files` (coming soon).
 3. Ensure CI is green.
 
-For larger features (e.g. HTML scraping, semantic search), see \`\`\*\* → “Backlog”.\*\*
+For larger features (e.g. HTML scraping, semantic search), see **Backlog**.
 
 ---
 
