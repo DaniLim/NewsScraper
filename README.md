@@ -54,7 +54,7 @@ uvicorn api:app --reload
 
 ## Roadmap
 
-The full milestone breakdown lives in [\`\`](docs/PLAN.md). Highlights:
+The full milestone breakdown lives in [PLAN.md](docs/PLAN.md). Highlights:
 
 | Stage | Focus                                        |
 | ----- | -------------------------------------------- |
