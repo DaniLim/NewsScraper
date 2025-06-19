@@ -14,6 +14,21 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -r requirements.txt beautifulsoup4 lxml
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y gh
+      - name: Download latest database
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RUN_ID=$(gh run list --workflow ingest.yml --branch ${{ github.ref_name }} -L 1 --json databaseId -q '.[0].databaseId' || echo "")
+          if [ -n "$RUN_ID" ]; then
+            gh run download "$RUN_ID" -n news-db
+            if [ -f news-db/news.db ]; then
+              mv news-db/news.db news.db
+            fi
+          fi
       - name: Run ingestion
         run: python ingest.py
       - name: Archive database
