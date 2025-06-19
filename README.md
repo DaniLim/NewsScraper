@@ -8,7 +8,7 @@ A **free, Spain‑focused News API prototype**. It ingests RSS feeds from Spanis
 
 ## Features (MVP)
 
-* 🔄  Automatic RSS ingestion (GitHub Actions every 30 min)
+* 🔄  Automatic RSS ingestion via GitHub Actions — a scheduled job runs `ingest.py` every 30 min and attaches `news.db` as a downloadable artifact in each workflow run
 * 🏷️  Duplicate detection (URL hash)
 * 🗄️  Lightweight storage (SQLite + WAL)
 * 🔍  Full‑text search with relevance + recency boost
